@@ -524,7 +524,7 @@ is_luks() {
     cryptsetup isLuks "$device"
     if [$? -eq 0];then
         return true
-    else;
+    else
         return false
     fi
 }
