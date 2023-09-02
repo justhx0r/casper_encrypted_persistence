@@ -1,5 +1,19 @@
+#!/bin/sh
 ## Casper helper functions, used by casper on boot and by casper-snapshot
 
+is_luks() {
+    if [ -x /bin/cryptsetup ]; then
+        local device="$1"
+        cryptsetup isLuks "$device"
+        if [ $? -eq 0 ]; then
+            return 0
+        else
+            return 1
+        fi
+    else
+        return 1
+    fi
+}
 if [ "${BUILD_SYSTEM}" = "Debian" ] || [ "${BUILD_SYSTEM}" = "Ubuntu" ]; then
     MP_QUIET="-q"
 else
@@ -519,12 +533,3 @@ find_path()
     return 1
 }
 
-is_luks() {
-    local device="$1"
-    cryptsetup isLuks "$device"
-    if [$? -eq 0];then
-        return true
-    else
-        return false
-    fi
-}
