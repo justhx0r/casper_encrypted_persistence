@@ -797,9 +797,6 @@ is_md() {
     return 1
 }
 
-is_luks(){
-
-}
 
 
 find_livefs() {
